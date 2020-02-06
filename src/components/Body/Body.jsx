@@ -9,9 +9,16 @@ class Body extends React.Component {
         generateArray();
     }
 
+    handleClick(algorithm) {
+        const { setAlgorithm } = this.props;
+        setAlgorithm(algorithm);
+    }
+
     render() {
         const {
+            algorithm,
             array,
+            isRunning,
             sort,
             generateArray,
             currentSwappers,
@@ -21,24 +28,31 @@ class Body extends React.Component {
             <React.Fragment>
                 <div className="row">
                     <div className="col-md-8">
-                        <ul className="nav justify-content-left">
+                        <ul className="nav nav-pills">
                             <li className="nav-item">
-                                <a className="nav-link active" href="#">Bubble</a>
+                                <a className={'nav-link' + (algorithm === 'bubbleSort' ? ' active' : '')} href="#" onClick={() => { this.handleClick('bubbleSort') }}>Bubble</a>
                             </li>
                             <li className="nav-item">
-                                <a className="nav-link" href="#">Quick</a>
+                                <a className={'nav-link' + (algorithm === 'quickSort' ? ' active' : '')} href="#" onClick={() => { this.handleClick('quickSort') }}>Quick</a>
                             </li>
                             <li className="nav-item">
-                                <a className="nav-link" href="#">Merge</a>
+                                <a className={'nav-link' + (algorithm === 'mergeSort' ? ' active' : '')} href="#" onClick={() => { this.handleClick('mergeSort') }}>Merge</a>
                             </li>
-                            {/* <li className="nav-item">
-                        <a className="nav-link disabled" href="#">Disabled</a>
-                    </li> */}
                         </ul>
                     </div>
                     <div className="col-md-4 text-right">
-                        <button className="btn btn-sm btn-primary m-2" onClick={() => { sort(array) }}>Sort</button>
-                        <button className="btn btn-sm btn-danger m-2" onClick={generateArray}>Reset</button>
+                        <button
+                            className={'btn btn-sm btn-primary m-2' + (isRunning ? ' disabledCursor' : '')}
+                            onClick={() => { sort(array) }}
+                            disabled={isRunning}
+                        >Sort
+                        </button>
+                        <button
+                            className={'btn btn-sm btn-danger m-2' + (isRunning ? ' disabledCursor' : '')}
+                            onClick={generateArray}
+                            disabled={isRunning}
+                        >Reset
+                        </button>
                     </div>
                 </div>
                 <div id="bodyContainer">

@@ -1,10 +1,12 @@
 import { connect } from 'react-redux';
 import Body from './Body';
-import { setArray, setRunning } from '../../actions';
+import { setArray, setRunning, setAlgorithm } from '../../actions';
 import bubblesort from '../../algorithms/bubblesort';
 
-const mapState = ({ array, currentSwappers, currentBubbles }) => ({
+const mapState = ({ algorithm, array, isRunning, currentSwappers, currentBubbles }) => ({
+    algorithm,
     array,
+    isRunning,
     currentSwappers,
     currentBubbles
 });
@@ -16,6 +18,9 @@ const mapDispatch = (dispatch) => ({
             array.push(Math.floor((Math.random() * 200) + 10));
         }
         dispatch(setArray(array));
+    },
+    setAlgorithm: (algo) => {
+        dispatch(setAlgorithm(algo));
     },
     sort: (array) => {
         dispatch(setRunning(true));
