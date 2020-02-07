@@ -15,7 +15,9 @@ class Body extends React.Component {
                 <div id="bodyContainer">
                     {
                         array.length ? array.map((num, idx) => {
-                            const bgColor = currentSwappers.includes(idx) ? '#ffa600' : currentBubbles.includes(idx) ? '#7a5195' : 'turquoise';
+                            const bgColor = currentSwappers.includes(idx) ?
+                                '#ffa600' : currentBubbles.includes(idx) ?
+                                    '#7a5195' : 'turquoise';
                             return <div key={idx} className="arrayElement" style={{ height: num * 3, backgroundColor: bgColor }}></div>;
                         }) : null
                     }

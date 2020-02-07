@@ -1,5 +1,4 @@
-import { setArray, setRunning, setCurrentSwapper, setCurrentBubble } from '../actions';
-const TIMEOUT_INTERVAL = 1;
+import dispatchHandler from './dispatch.handler';
 
 const bubbleSort = (array, dispatch) => {
     let arrayClone = [...array];
@@ -7,7 +6,7 @@ const bubbleSort = (array, dispatch) => {
     let isSwapped = true;
     while (isSwapped) {
         isSwapped = false;
-        for (let i = 0; i < arrayClone.length; i++) {
+        for (let i = 0; i < arrayClone.length - 1; i++) {
             swapHistory.push([i, i + 1]); /* To track current two bubbles */
             if (arrayClone[i] > arrayClone[i + 1]) {
                 swapHistory.push([i, i + 1, true]); /* To track current swapper */
@@ -24,26 +23,7 @@ const bubbleSort = (array, dispatch) => {
 }
 
 function _handleDispatch(dispatch, swapHistory) {
-    if (swapHistory.length !== 0) {
-        let dispatchFunction;
-        if (swapHistory[0].length > 3) {
-            dispatchFunction = setArray;
-        } else if (swapHistory[0].length === 3 || swapHistory[0].length === 0) {
-            dispatchFunction = setCurrentSwapper;
-        } else if (swapHistory[0].length === 2) {
-            dispatchFunction = setCurrentBubble;
-        }
-        dispatch(dispatchFunction(swapHistory.shift())); /* Removes and returns first element from array */
-        setTimeout(() => {
-            _handleDispatch(dispatch, swapHistory);
-        }, TIMEOUT_INTERVAL);
-    } else {
-        /* Clearing curernt bubbles */
-        setTimeout(() => {
-            dispatch(setCurrentBubble([]));
-            dispatch(setRunning(false));
-        }, TIMEOUT_INTERVAL);
-    }
+    return dispatchHandler(dispatch, swapHistory);
 }
 
 export default bubbleSort;
