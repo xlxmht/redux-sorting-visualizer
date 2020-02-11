@@ -4,6 +4,8 @@ import isRunning from './isrunning';
 import currentSwappers from './swapper';
 import currentBubbles from './bubble';
 import algorithm from './algorithm';
+import { setFoundReducer as currentFound, searchReducer as currentLeftRight } from './search';
+import currentMiddle from './middle';
 
 /* These properties will be available to components with exact same names as imported */
 export default combineReducers({
@@ -11,5 +13,8 @@ export default combineReducers({
     array,
     isRunning,
     currentSwappers,
-    currentBubbles
+    currentBubbles,
+    currentLeftRight,
+    currentMiddle,
+    currentFound
 });
